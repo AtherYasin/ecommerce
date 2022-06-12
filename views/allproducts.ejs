@@ -1,0 +1,48 @@
+<h2>All Products</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>productCategory</th>
+            <th>productDescription</th>
+            <th>price</th>
+            <th>adder</th>
+            <th>productID</th>
+            <th>change</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <% if (typeof allproducts !='undefined' ) { %>
+            <% allproducts.forEach(function(v){ %>
+                <tr>
+                    <td>
+                        <%= v.name %>
+                    </td>
+                    <td>
+                        <%= v.productCategory %>
+                    </td>
+                    <td>
+                        <%= v.productDescription %>
+                    </td>
+                    <td>
+                        <%= v.price %>
+                    </td>
+                    <td>
+                        <%= v.adder %>
+                    </td> %>
+                    <td>
+                        <%= v.productID %>
+                    </td>
+                    <td>
+                        <a href="/adminpanel/edit/<%= v._id %>">edit</a>
+                        <a href="/adminpanel/delete/<%= v._id %>">delete</a>
+                    </td>
+                </tr>
+                <% }) %>
+                    <% } %>
+
+
+    </tbody>
+</table>

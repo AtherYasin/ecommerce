@@ -1,0 +1,154 @@
+<% if (typeof allusers !='undefined' ) { %> <% allusers.forEach(function(v){ %>
+<h1><%= v.name %></h1>
+<% }) %> <% } %>
+
+
+<% if (typeof errors != 'undefined') { %>
+    <% errors.forEach(function(error){ %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <%= error.msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% }); %>
+
+<% } %>
+
+
+
+
+// mongoose
+//   .connect(dbName.MongoURI, { useNewUrlParser: true })
+//   .then(() => console.log("mongoDB Connected..."))
+//   .catch((err) => console.log(err));
+
+// let gfs;
+// connection();
+// var db = new mongo.Db("yourDatabaseName", new mongo.Server("127.0.0.1", 27017));
+// console.log(db);
+// const conn = mongoose.connect(dbName.MongoURI);
+// const conn = mongoose.connection;
+// // const conn = mongoose.createConnection(process.env.DATABASE_URL);
+// console.log(conn);
+// console.log("conn.db", conn);
+// conn.once("open", function () {
+//   gfs = Grid(conn._connectionString, mongoose.mongo);
+//   gfs.collection("photos");
+// });
+
+// app.use("/file", upload);
+
+// // media routes
+// app.get("/file/:filename", async (req, res) => {
+//   try {
+//     const file = await gfs.files.findOne({ filename: req.params.filename });
+//     const readStream = gfs.createReadStream(file.filename);
+//     readStream.pipe(res);
+//   } catch (error) {
+//     console.log(error);
+//     res.send("not found");
+//   }
+// });
+
+// app.delete("/file/:filename", async (req, res) => {
+//   try {
+//     await gfs.files.deleteOne({ filename: req.params.filename });
+//     res.send("success");
+//   } catch (error) {
+//     console.log(error);
+//     res.send("An error occured.");
+//   }
+// });
+
+//   app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: false,
+//   store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
+// }));
+
+
+
+//core modules
+require("dotenv").config();
+const path = require('path')
+
+
+//Express
+const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
+const app = express();
+
+//mongoose
+const { default: mongoose } = require("mongoose");
+
+//others
+const flash = require('connect-flash')
+const session = require('express-session')
+
+//passport
+const passport = require('passport')
+require('./config/passport')(passport);
+
+
+//Database Connection
+const db = require('./config/keys').MongoURI;
+
+
+//paths
+
+const publicDirectoryPath = path.join(__dirname,"./public")
+
+
+
+mongoose.connect(db, {useNewUrlParser: true}).then(()=> console.log("mongoDB Connected..."))
+.catch(err => console.log(err))
+
+
+
+app.use(expressLayouts);
+app.set('view engine','ejs')
+
+
+app.use(express.static(publicDirectoryPath))
+
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(
+  session({
+    secret: "scaredycat",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+
+
+//   app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: false,
+//   store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
+// }));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+
+app.use(passport.authenticate('session'));
+
+app.use(flash())
+
+app.use((req,res,next)=>{
+    res.locals.success_msg = req.flash('success_msg')
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error')
+    next()
+})
+
+app.use('/', require('./routes/index'))
+app.use('/users', require('./routes/users'))
+
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, console.log(`server start on http://localhost:${PORT}`))

@@ -1,0 +1,113 @@
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-3">
+          <i class="fas fa-user-plus"></i> Register
+        </h1>
+        <%- include('partials/messages.ejs') %>
+        <form action="/users/register" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              
+              value="<%= typeof name != 'undefined' ? name : '' %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              
+              value="<%= typeof password != 'undefined' ? password : '' %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password2">Confirm Password</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              
+              value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="testImage">Choose ProfilePic</label>
+            <input type="file" id="testImage" name="testImage" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <h5>Choose Your Gender</h5>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">male</label>
+            <input type="radio" id="female" name="gender" value="female" required>
+            <label for="female">female</label>
+            <input type="radio" id="other" name="gender" value="other" required>
+            <label for="other">other</label>
+          </div>
+          <div class="form-group">
+            <h5>Choose Your Role</h5>
+            <select name="roles" id="roles" required>
+              <option value="user">user</option>
+              <option value="superadmin">superadmin</option>
+              <option value="admin">admin</option>
+              <option value="customer">customer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <h4>Select correct Transport options</h4>
+            <input type="checkbox" id="bus" name="bus" value="bus">
+            <label for="bus"> I can use Public Bus</label><br>
+            <input type="checkbox" id="bike" name="bike" value="bike">
+            <label for="Bike"> I have a bike</label><br>
+            <input type="checkbox" id="car" name="car" value="car">
+            <label for="Car"> I have a car</label><br>
+            <input type="checkbox" id="truck" name="truck" value="truck">
+            <label for="truck"> I have a truck</label><br><br>
+          </div>
+          <div class="form-group">
+            <h3>Your Date of Birth</h3>
+            <input name="dob" type="date" value="<%= typeof dob !='undefined' ? dob : '' %>" required>
+
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary btn-block">
+            Register
+          </button>
+        </form>
+        <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+        <p class="lead mt-4">
+          Forgotpassword <a href="/forgetpassword">Reset Password</a>
+        </p>
+        <p class="lead mt-4">Back to browsing<a href="/">Click here</a></p>
+      </div>
+    </div>
+  </div>
+
+  

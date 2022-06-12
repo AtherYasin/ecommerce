@@ -1,0 +1,52 @@
+<h2>All Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>roles</th>
+            <th>Date of birth</th>
+            <th>Status</th>
+            <th>ProfilePic</th>
+            <th>Change</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (typeof allusers !='undefined' ) { %>
+            <% allusers.forEach(function(v){ %>
+                <tr>
+                    <td>
+                        <%= v.name %>
+                    </td>
+                    <td>
+                        <%= v.email %>
+                    </td>
+                    <td>
+                        <%= v.gender %>
+                    </td>
+                    <td>
+                        <%= v.roles %>
+                    </td> %>
+                    <td>
+                        <%= v.dob %>
+                    </td>
+                    <td>
+                        <%= v.isVerified ? "Verified" : "Unverified" %>
+                    </td>
+                    <td>
+
+                        <img style="height: 15px;" src="<%= v.image.data %>">
+                    </td>
+                    <td>
+                        <a href="/adminpanel/edit/<%= v._id %>">edit</a>
+                        <a href="/adminpanel/delete/<%= v._id %>">delete</a>
+                    </td>
+                </tr>
+                <% }) %>
+                    <% } %>
+
+
+    </tbody>
+</table>

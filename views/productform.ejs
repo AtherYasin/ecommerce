@@ -1,0 +1,53 @@
+<div class="row mt-5">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1 class="text-center mb-3"><i class="fas fa-user-plus"></i> Products</h1>
+      <%- include('partials/messages.ejs') %>
+        <form action="/users/addproduct" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="productID">Product ID</label>
+            <input type="number" id="productID" name="productID" class="form-control"
+              value="<%= typeof productID != 'undefined' ? productID : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="name">Product Name</label>
+            <input type="text" id="Name" name="name" class="form-control"
+              value="<%= typeof name != 'undefined' ? name : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="productCategory">Product Category</label>
+            <input type="text" id="productCategory" name="productCategory" class="form-control"
+              value="<%= typeof productCategory != 'undefined' ? productCategory : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="productDescription">Product Description</label>
+            <input type="text" id="productDescription" name="productDescription" class="form-control"
+              value="<%= typeof productDescription != 'undefined' ? productDescription : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="productTags">Product Tags</label>
+            <input type="text" id="productTags" name="productTags" class="form-control"
+              value="<%= typeof productTags != 'undefined' ? productTags : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="productRating">Product Rating</label>
+            <input type="number" id="productRating" name="productRating" class="form-control" max="5" min="0"
+              value="<%= typeof productRating != 'undefined' ? productRating : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="price">Product Price</label>
+            <input type="number" id="price" name="price" class="form-control"
+              value="<%= typeof price != 'undefined' ? price : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="testImage">Product image</label>
+            <input type="file" id="testImage" name="testImage" class="form-control" />
+          </div>
+
+          <br />
+          <button type="submit" class="btn btn-primary btn-block">submit</button>
+        </form>
+        <p class="lead mt-4">Back to browsing<a href="/">Click here</a></p>
+    </div>
+  </div>
+</div>
